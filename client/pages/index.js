@@ -1,16 +1,29 @@
 import axios from 'axios';
 
 const LandingPage = ({ currentUser })=>{
-  // console.log(currentUser);
+   console.log(currentUser);
   // axios.get('/api/users/currentuser');
+
   return <h1>Landing Page</h1>;
 };
 
-LandingPage.getInitialProps = async () =>{
-  // const response = await axios.get('/api/users/currentuser');
-  //
-  // return response.data;
+LandingPage.getInitialProps = async ({req}) =>{
 
+  if (typeof window === 'undefined'){
+    // estamos en el server
+    const {data} = await axios.get(
+        'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser',
+        {
+          headers: req.headers
+        }
+    );
+    return data;
+  }else {
+    //estamos en el navegador
+    const {data} = await axios.get('/api/users/currentuser');
+    return data;
+  }
+  return {};
 };
 
 export default LandingPage;
