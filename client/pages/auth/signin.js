@@ -6,7 +6,7 @@ export default () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const {doRequest, errors} = useRequest({
-        url: '/api/users/signup',
+        url: '/api/users/signin',
         method: 'post',
         body: {
             email, password
@@ -22,7 +22,7 @@ export default () => {
 
     return (
         <form onSubmit={onSubmit}>
-            <h1>Registrarse</h1>
+            <h1>Logearse</h1>
             <div className="form-group">
                 <label>Email Address</label>
                 <input value={email} onChange={e => setEmail(e.target.value)} className="form-control"/>
@@ -32,7 +32,7 @@ export default () => {
                 <input value={password} onChange={e => setPassword(e.target.value)} type="password" className="form-control"/>
             </div>
             {errors}
-            <button className="btn btn-primary">Registrarse</button>
+            <button className="btn btn-primary">Logearse</button>
         </form>
     );
 };
